@@ -1,0 +1,8 @@
+// this '&' symbol will become whatever element we append this mixin to.
+@mixin clearfix {
+  &::after {
+      content: '';
+      display: table; // the standard display of clearfix is table.
+      clear: both; // a property that will add appropriate functionality to both float lefts and float rights
+  }
+}

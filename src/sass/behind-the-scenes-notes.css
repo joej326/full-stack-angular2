@@ -1,0 +1,10 @@
+/* when we say font-size: 150% it means 150% of the parent's font-size. (which could be the HTML or body)
+This also applies to percent width.
+
+em's are different:
+- fonts are based on parent's font
+- widths are based on the current element's width. 
+
+rem is based on the root font-size. (the html font-size) 
+
+Properties related to text (e.g. font-size, color, font-family) are inherited. */

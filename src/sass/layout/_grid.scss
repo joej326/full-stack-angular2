@@ -1,0 +1,46 @@
+
+.row {
+    max-width: 114rem; // max-width means that if the viewport is SMALLER than specified, the element will fill 100% of viewwidth.
+    margin: 0 auto; // a well-known trick to center a block element inside another block element horizontally.
+    
+    @include clearfix; // included since we're using floats which will collapse the parent's height.
+
+    // the square braces is an attribute selector. (ex: [src] { } would select all the image "src's" on the page.
+    // The carrot signifies that we want the attribute to START with the specified parameters. (this works same as regex so * and $ apply)
+    [class^="col-"] {
+        float: left;
+
+
+        // not-last-child used b/c the column furthest on the right won't have the gutter. (see pic: https://imgur.com/Auzpo9n )
+        &:not(:last-child) {
+            margin-right: $gutter-horizontal;
+        }
+    }
+
+    // not means EVERYTHING EXCEPT the argument
+    &:not(:last-child) {
+        margin-bottom: $gutter-vertical;
+    }
+
+    // since this is nested inside of the .row, it means "all of the .col-1-of-2 that exist INSIDE of .row"
+    .col-1-of-2 {
+        width: calc((100% - #{$gutter-horizontal}) * (1 /2)); // the #{} is used in the 'calc' function when using sass variables
+        // (above) gives us the length of one column in row of 2.
+    }
+
+
+    .col-1-of-3 {
+        width: calc((100% - (2 * #{$gutter-horizontal})) * (1 /3)); // gives us the length of one column in row of 3.
+    }
+
+    .col-2-of-3 {
+        width: calc((2 * ((100% - (2 * #{$gutter-horizontal})) * (1 /3))) + #{$gutter-horizontal}); // two-times a 1-third plus a gutter (see chart)
+    }
+
+    .col-1-of-4 {
+        width: calc((100% - (3 * #{$gutter-horizontal})) * (1 / 4)); // gives us the length of one column in row of 4.
+    }
+    // the number being multiplied on these above is the number of gutters
+
+
+}

@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "sass/abstracts/functions"; // we can omit the underscore for all of these sass figures it out
+@import "sass/abstracts/mixins";
+@import "sass/abstracts/variables";
+
+@import "sass/base/animations";
+@import "sass/base/base";
+@import "sass/base/typography";
+@import "sass/base/utilities";
+
+// @import "components/button";
+// @import "components/card";
+// @import "components/composition";
+// @import "components/feature-box";
+
+@import "sass/layout/grid";
+
+@import "sass/pages/home";
+
+
+
+

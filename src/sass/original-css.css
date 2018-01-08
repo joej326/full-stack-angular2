@@ -1,0 +1,189 @@
+/* moved box-sizing: border-box down to the body and set the 'all' selector to inherit.
+This is considered a better practice in the css community. 
+
+we also include all befores and afters. This avoids any wonky behavior from them. */
+* {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    box-sizing: inherit; }
+    *::before, *::after {
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      box-sizing: inherit; }
+  
+  /* 
+    setting fontsize for html in order to efficiently use rem. 1rem will now equal 10px.
+    
+    note: we originally had pixel measurements for all our stuff. Now that we set rem to 10px,
+    we can go back through and divide our pixel measurments by 10.
+    (e.g. padding: 30px becomes padding: 3rem)
+    
+    also note: rem is not supported below IE 9.
+    */
+  html {
+    font-size: 0.7vw; }
+  
+  body {
+    font-family: "Lato", sans-serif;
+    /*if lato is not available, use sans-serif */
+    font-weight: 400;
+    /* font-size: 16px; */
+    line-height: 1.7;
+    color: #777;
+    padding: 3rem;
+    box-sizing: border-box; }
+  
+  .header {
+    position: relative;
+    height: 95vh;
+    background-image: linear-gradient(to right, rgba(126, 213, 111, 0.8), rgba(40, 180, 131, 0.8)), url(../img/hero.jpg);
+    /* we can use multiple images separated with commas. our 1st image is a gradient. */
+    background-size: cover;
+    background-position: top;
+    /* this affects how the image crops in its responsiveness */
+    clip-path: polygon(0 0, 100% 0, 100% 75vh, 0% 100%); }
+  
+  .header__logo-box {
+    position: absolute;
+    top: 4rem;
+    left: 4rem; }
+  
+  .header__logo {
+    height: 3.5rem; }
+  
+  .header__text-box {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%); }
+  
+  .heading-primary {
+    color: #fff;
+    text-transform: uppercase;
+    margin-bottom: 6rem;
+    backface-visibility: hidden; }
+  
+  .heading-primary--main {
+    animation: moveInLeft;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+    display: block;
+    font-size: 6rem;
+    font-weight: 400;
+    letter-spacing: 3.5rem;
+    backface-visibility: hidden; }
+  
+  /* if your animation is ticking up afterwards,there's a hack fix.
+    
+    backface-visibility: hidden;
+    
+    */
+  .heading-primary--sub {
+    animation: moveInRight;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+    display: block;
+    font-size: 2rem;
+    font-weight: 400;
+    letter-spacing: 1.5rem;
+    backface-visibility: hidden; }
+  
+  @keyframes moveInLeft {
+    0% {
+      opacity: 0;
+      transform: translateX(-10rem); }
+    100% {
+      opacity: 1;
+      transform: translateX(0rem); } }
+  
+  @keyframes moveInRight {
+    0% {
+      opacity: 0;
+      transform: translateX(10rem); }
+    100% {
+      opacity: 1;
+      transform: translateX(0rem); } }
+  
+  @keyframes moveInButton {
+    0% {
+      opacity: 0;
+      transform: translateY(5rem); }
+    100% {
+      opacity: 1;
+      transform: translateY(0rem); } }
+  
+  /*Inline elements: (for the display below)
+    
+    respect left & right margins and padding, but not top & bottom
+    cannot have a width and height set
+    allow other elements to sit to their left and right.
+    see very important side notes on this here.
+    (inlines respond as if it is text)
+    Block elements:
+    
+    respect all of those
+    force a line break after the block element
+    Inline-block elements:
+    
+    allow other elements to sit to their left and right
+    respect top & bottom margins and padding
+    respect height and width */
+  .btn:link, .btn:visited {
+    position: relative;
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    text-decoration: unset;
+    padding: 1.5rem 4rem;
+    display: inline-block;
+    border-radius: 10rem;
+    transition: all 0.2s;
+    /* we want ALL of this class's properties to be animated over 0.2 seconds  */ }
+  
+  .btn:hover {
+    transform: translateY(-0.5rem);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+    /* args: x, y, blur, color  */ }
+  
+  .btn:active {
+    transform: translateY(-0.1rem);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+    /* args: x, y, blur, color  */ }
+  
+  .btn--white {
+    background-color: white; }
+  
+  /* the 'after' psuedo selector creates a virtual element. it requires a 'content' attribute. (we can set it to an empty string).
+    We are using height and width of 100% b/c we are creating a virtual clone of our button. When using 'after' the height and width
+    are in relation to the parent (which is the actual button).
+    
+    we also use position absolute to postion our virtual element directly behind our actual button.
+    (note that for this we added position relative to our button)*/
+  .btn::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 10rem;
+    position: absolute;
+    top: 0rem;
+    left: 0rem;
+    z-index: -1;
+    transition: all 0.25s;
+    /* note that this transition must be on the INITIAL state for the animation to execute. dont put it on the hover. */ }
+  
+  .btn--white::after {
+    background-color: #fff; }
+  
+  .btn:hover::after {
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0;
+    /* opacity 0 will animate */ }
+  
+  .btn--animation {
+    animation: moveInButton 0.5s ease-out 0.75s;
+    /* first time is the duration, second time is the delay. */
+    animation-fill-mode: backwards;
+    /* this fixes the button being visible before the animation starts. (due to the delay) */ }
+  

@@ -1,0 +1,29 @@
+
+
+// mixin example (can be with or w/o parameters
+@mixin myMixin($passedInColor) {
+    font-size: 20px;
+    color: $passedInColor
+}
+// can be added to whatever with @include
+
+p {
+    background: red;
+    @include myMixin(blue);
+}
+
+// **********************************************************************************************
+
+//placeholders
+%btn-placeholder {
+    background: red;
+    border-radius: 10px;
+}
+
+.my-button {
+    @extend %btn-placeholder;
+}
+
+// the difference between mixins and placeholders is that you should only use placeholders when the elements
+// you are affecting are closely related to eachother like having 2 buttons that are next to eachother.
+
