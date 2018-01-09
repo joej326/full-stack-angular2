@@ -1,22 +1,66 @@
-
+<div class="container">
 
 <h1>Hello World!!!!</h1>
 
 <button (click)="callService()" >Click</button>
 
 <h3>{{ myVar }}</h3>
-<h3>{{ myVar }}</h3>
-<h3>{{ myVar }}</h3>
-
-<h3>{{ myVar }}</h3>
-
-<h3>{{ myVar }}</h3>
-
-<h3>{{ myVar }}</h3>
-
-<h3>{{ myVar }}</h3>
-
-<h3>{{ myVar }}</h3>
 
 
-<h3>{{ myVar }}</h3>
+
+<form (ngSubmit)="submitForm()" [formGroup]="form">
+
+
+  <div class="form-group">
+    <label for="firstName">firstName:</label>
+    <input
+    id="firstName"
+    formControlName="firstName"
+    name="firstName"
+    type="text"
+    class="form-control">
+  </div>
+
+
+
+  <div class="form-group">
+    <label for="lastName">lastName:</label>
+    <input
+    id="lastName"
+    formControlName="lastName"
+    name="lastName"
+    type="text"
+    class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="password">password:</label>
+    <input
+    id="password"
+    formControlName="password"
+    name="password"
+    type="text"
+    class="form-control">
+  </div>
+
+  <div class="form-group">
+      <label for="email">Email:</label>
+      <input
+      id="email"
+      formControlName="email"
+      name="email"
+      type="text"
+      class="form-control">
+    </div>
+
+
+
+    <button [disabled]="!form.valid" type="submit" class="btn btn-warning">Submit</button>
+  </form>
+
+  <h1>Delete a user by typing in their name</h1>
+  <input #deleterInput class="form-control" type="text">
+  <br>
+  <button (click)="deleteUser(deleterInput)" class="btn btn-danger">Delete</button>
+
+</div>
