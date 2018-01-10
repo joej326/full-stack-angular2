@@ -21,11 +21,9 @@ app.use(bodyParser.json());
 app.use(cors());
 
 
-
-
 app.get('/cats', (req, res) => {
 
-    User.find({
+    User.find({   // find takes two arguments, something to match by, and a callback to return the matched data
 
     }, (err, doc) => {
       res.json(doc);
@@ -33,7 +31,7 @@ app.get('/cats', (req, res) => {
   });
 
 
-app.post('/cats', (req, res, next) => {
+app.post('/cats', (req, res) => {
   console.log('pozted!');
   console.log(req.body);
   let user = new User({
@@ -44,17 +42,19 @@ app.post('/cats', (req, res, next) => {
   });
 
   user.save(); // saves it to the database. takes an optional callback argument with err, result.
-  next();
+  res.status(200).json('ok');
+
 });
 
 
-app.delete('/cats', (req, res, next) => {
+app.delete('/cats', (req, res) => {
   console.log('delete is running');
   console.log(req.body);
   User.remove({
     firstName: req.body.user
   }, (err, doc) => console.log(err));
-  next();
+
+  res.status(200).json('ok');
 });
 
 
